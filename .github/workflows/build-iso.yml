@@ -1,0 +1,45 @@
+name: Build Bootstrapping ISO
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    # Every Sunday at midnight
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allow manual trigger from the GitHub web UI
+
+permissions:
+  contents: write # Allow the runner to upload the ISO to a release tag
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Install Nix and configures official Determinate Systems caching
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v14
+
+      # Speeds up subsequent builds by caching evaluation and store objects
+      - name: Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v9
+
+      - name: Build ISO
+        run: |
+          nix build .#default
+          # Move the output ISO to a stable filename for the release
+          mkdir -p output/
+          cp result/iso/*.iso output/nixos-cloudinit.iso
+
+      - name: Upload ISO to Rolling Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "Latest Bootstrap ISO"
+          draft: false
+          prerelease: false
+          files: output/nixos-proxmox-bootstrap.iso
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

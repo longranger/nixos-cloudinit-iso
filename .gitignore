@@ -1,0 +1,19 @@
+# Result symlinks from `nix build` or `nix-build`
+result
+result-*
+
+# Editor & OS junk
+.*.swp
+*.swp
+*.swo
+.netrwhist
+
+# macOS specific files
+.DS_Store
+
+# Linux specific desktop files
+.directory
+
+# Local Workflow / CI Testing
+output/
+*.iso
