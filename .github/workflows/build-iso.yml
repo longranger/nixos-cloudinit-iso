@@ -40,6 +40,6 @@ jobs:
           name: "Latest Bootstrap ISO"
           draft: false
           prerelease: false
-          files: output/nixos-proxmox-bootstrap.iso
+          files: output/nixos-cloudinit.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
