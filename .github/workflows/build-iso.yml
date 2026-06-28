@@ -20,7 +20,7 @@ jobs:
 
       # Install Nix and configures official Determinate Systems caching
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v14
+        uses: DeterminateSystems/nix-installer-action@v22
 
       # Speeds up subsequent builds by caching evaluation and store objects
       - name: Magic Nix Cache
