@@ -24,7 +24,7 @@ jobs:
 
       # Speeds up subsequent builds by caching evaluation and store objects
       - name: Magic Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v9
+        uses: DeterminateSystems/magic-nix-cache-action@v14
 
       - name: Build ISO
         run: |
