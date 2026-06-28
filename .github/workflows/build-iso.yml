@@ -18,13 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Install Nix and configures official Determinate Systems caching
+      # Install Nix and configure the stable Determinate Systems environment
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v22
-
-      # Speeds up subsequent builds by caching evaluation and store objects
-      - name: Magic Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v9
 
       - name: Build ISO
         run: |
