@@ -22,7 +22,13 @@
             services.cloud-init = {
               enable = true;
               network.enable = true;
+              # Explicitly tell cloud-init to look at NoCloud (Proxmox standard)
+              settings.datasource_list = [ "NoCloud" "ConfigDrive" ];
             };
+
+            # Override the installation-cd-minimal default to ensure Proxmox MAC/Slot pairing works
+            networking.usePredictableInterfaceNames = true;
+            networking.useNetworkd = true;
 
             services.openssh = {
               enable = true;
