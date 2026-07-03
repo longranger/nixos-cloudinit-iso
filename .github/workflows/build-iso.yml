@@ -29,7 +29,13 @@ jobs:
           BUILD_DATE=$(date +'%Y-%m-%d')
           cp result/iso/*.iso output/nixos-unstable-cloudinit-${BUILD_DATE}.iso
 
-      - name: Upload ISO to Rolling Release
+      - name: Delete Old Rolling Release
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload ISO to New Rolling Release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: latest
