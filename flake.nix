@@ -33,6 +33,9 @@
             networking.usePredictableInterfaceNames = true;
             networking.useNetworkd = true;
 
+            # Unblock boot sequencing as soon as any network interface is online.
+            systemd.network.wait-online.anyInterface = true;
+
             services.openssh = {
               enable = true;
               settings.PermitRootLogin = "yes";
