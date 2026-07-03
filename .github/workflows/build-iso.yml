@@ -2,10 +2,10 @@ name: Build Bootstrapping ISO
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   schedule:
     # Every Sunday at midnight
-    - cron: '0 0 * * 0'
+    - cron: "0 0 * * 0"
   workflow_dispatch: # Allow manual trigger from the GitHub web UI
 
 permissions:
@@ -25,9 +25,9 @@ jobs:
       - name: Build ISO
         run: |
           nix build .#default
-          # Move the output ISO to a stable filename for the release
           mkdir -p output/
-          cp result/iso/*.iso output/nixos-cloudinit.iso
+          BUILD_DATE=$(date +'%Y-%m-%d')
+          cp result/iso/*.iso output/nixos-unstable-cloudinit-${BUILD_DATE}.iso
 
       - name: Upload ISO to Rolling Release
         uses: softprops/action-gh-release@v3
@@ -36,6 +36,6 @@ jobs:
           name: "Latest Bootstrap ISO"
           draft: false
           prerelease: false
-          files: output/nixos-cloudinit.iso
+          files: output/nixos-unstable-cloudinit-*.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
