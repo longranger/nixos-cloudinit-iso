@@ -26,6 +26,9 @@
               settings.datasource_list = [ "NoCloud" "ConfigDrive" ];
             };
 
+            # Enable the QEMU Guest Agent daemon
+            services.qemuGuest.enable = true;
+
             # Override the installation-cd-minimal default to ensure Proxmox MAC/Slot pairing works
             networking.usePredictableInterfaceNames = true;
             networking.useNetworkd = true;
