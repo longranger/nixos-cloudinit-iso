@@ -42,8 +42,11 @@
               matchConfig.Name = "eth* ens* enp*";
               networkConfig = {
                 LinkLocalAddressing = "no";
-                KeepConfiguraton = "yes";
               };
+              extraConfig = ''
+                [Network]
+                KeepConfiguration=yes
+              '';
             };
 
             # Unblock boot sequencing as soon as any network interface is online.
