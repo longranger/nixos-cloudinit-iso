@@ -40,13 +40,7 @@
             # Enforce strict link configuration to ensure routes are flushed and correctly applied
             systemd.network.networks."99-default-cloudinit" = {
               matchConfig.Name = "eth* ens* enp*";
-              networkConfig = {
-                LinkLocalAddressing = "no";
-              };
-              extraConfig = ''
-                [Network]
-                KeepConfiguration=yes
-              '';
+              networkConfig.LinkLocalAddressing = "no";
             };
 
             # Unblock boot sequencing as soon as any network interface is online.
