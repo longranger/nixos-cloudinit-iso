@@ -21,7 +21,7 @@
             # Core services required for Cloud-Init bootstrapping
             services.cloud-init = {
               enable = true;
-              network.enable = true;
+              network.enable = false;
               # Explicitly tell cloud-init to look at NoCloud (Proxmox standard)
               settings.datasource_list = [ "NoCloud" "ConfigDrive" ];
             };
@@ -40,7 +40,10 @@
             # Enforce strict link configuration to ensure routes are flushed and correctly applied
             systemd.network.networks."99-default-cloudinit" = {
               matchConfig.Name = "eth* ens* enp*";
-              networkConfig.LinkLocalAddressing = "no";
+              networkConfig = {
+                LinkLocalAddressing = "no";
+                KeepConfiguraton = "yes";
+              };
             };
 
             # Unblock boot sequencing as soon as any network interface is online.
