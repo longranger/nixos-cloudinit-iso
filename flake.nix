@@ -33,6 +33,10 @@
             networking.useNetworkd = true;
             networking.usePredictableInterfaceNames = true;
 
+            # Prevent legacy installer scripts from hijacking the interface after boot
+            networking.dhcpcd.enable = false;
+            networking.useDHCP = false;
+
             # Enforce strict link configuration to ensure routes are flushed and correctly applied
             systemd.network.networks."99-default-cloudinit" = {
               matchConfig.Name = "eth* ens* enp*";
