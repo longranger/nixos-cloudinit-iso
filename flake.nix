@@ -37,12 +37,6 @@
             networking.dhcpcd.enable = false;
             networking.useDHCP = false;
 
-            # Enforce strict link configuration to ensure routes are flushed and correctly applied
-            systemd.network.networks."99-default-cloudinit" = {
-              matchConfig.Name = "eth* ens* enp*";
-              networkConfig.LinkLocalAddressing = "no";
-            };
-
             # Unblock boot sequencing as soon as any network interface is online.
             systemd.network.wait-online.anyInterface = true;
 
