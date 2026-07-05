@@ -31,7 +31,7 @@
 
             # Override the installation-cd-minimal default to ensure Proxmox MAC/Slot pairing works
             networking.useNetworkd = true;
-            networking.usePredictableInterfaceNames = true;
+            networking.usePredictableInterfaceNames = false;
 
             # Prevent legacy installer scripts from hijacking the interface after boot
             networking.dhcpcd.enable = false;
